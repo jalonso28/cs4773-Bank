@@ -4,6 +4,8 @@ import android.content.Context;
 
 import com.notit.bank.bankapp.User.*;
 
+import java.util.ArrayList;
+
 /**
  * Created by Beaster on 11/5/2015.
  */
@@ -34,7 +36,7 @@ public class DBController {
         user.setId(1);
         user.setPassword("1234heythere");
         user.setRoleCode(0);
-        user.setRoleTitle("HR");
+        user.setRoleTitle("User");
 
         // Typical employee User
 
@@ -50,5 +52,24 @@ public class DBController {
     }
 
 
+    public void deleteEmployee(User user) {
+    }
 
+    public void updateUser(User newUser) {
+    }
+
+    public ArrayList<User> getAllUsers() {
+        ArrayList<User> u = new ArrayList<>();
+        u.add(this.user);
+        return u;
+    }
+
+    public void insertUser(User newUser) {
+    }
+
+    public ArrayList<String> getRoles() {
+        ArrayList<String> s = new ArrayList<>();
+        s.add("User");
+        return s;
+    }
 }

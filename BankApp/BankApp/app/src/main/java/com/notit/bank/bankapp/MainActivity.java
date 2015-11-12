@@ -84,7 +84,7 @@ public class MainActivity extends ActionBarActivity
                     ft.replace(R.id.container, fragment);
                     break;
                 case 1:
-                    fragment = PlaceholderFragment.newInstance(-1);
+                    fragment = AddUserFragment.newInstance(2);
                     break;
                 case 2:
                     fragment = PlaceholderFragment.newInstance(-1);
