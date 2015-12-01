@@ -5,7 +5,7 @@
     <string name="title_activity_login">Sign in</string>
 
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
+    <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
 
@@ -14,8 +14,8 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
+    <string name="title_section1">User Info</string>
+    <string name="title_section2">Add/Delete User</string>
     <string name="title_section3">Section 3</string>
     <string name="untitled">Untitled</string>
 

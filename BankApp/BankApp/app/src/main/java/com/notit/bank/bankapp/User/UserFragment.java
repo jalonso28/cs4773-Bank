@@ -6,8 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.plus.Plus;
 import com.notit.bank.bankapp.*;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.notit.bank.bankapp.User.*;
 
 /**
@@ -15,6 +18,18 @@ import com.notit.bank.bankapp.User.*;
  */
 public class UserFragment extends MainActivity.PlaceholderFragment {
     private static final String ARG_USR_ID = "usrId";
+
+    public final class Constants {
+        public static final int SUCCESS_RESULT = 0;
+        public static final int FAILURE_RESULT = 1;
+        public static final String PACKAGE_NAME =
+                "com.google.android.gms.location.sample.locationaddress";
+        public static final String RECEIVER = PACKAGE_NAME + ".RECEIVER";
+        public static final String RESULT_DATA_KEY = PACKAGE_NAME +
+                ".RESULT_DATA_KEY";
+        public static final String LOCATION_DATA_EXTRA = PACKAGE_NAME +
+                ".LOCATION_DATA_EXTRA";
+    }
 
     public static UserFragment newInstance(int sectionNumber, long userId) {
         UserFragment fragment = new UserFragment();
@@ -36,7 +51,7 @@ public class UserFragment extends MainActivity.PlaceholderFragment {
         TextView textView;
         DBController dbController = DBController.getInstance(getActivity());
         Bundle args = getArguments();
-        User user = dbController.getUser(args.getLong(ARG_USR_ID));
+        User user = dbController.getUser((int) args.getLong(ARG_USR_ID));
 
         root = (LinearLayout) inflater.inflate(R.layout.fragment_employee_info, container, false);
         if (user != null) {
@@ -47,6 +62,8 @@ public class UserFragment extends MainActivity.PlaceholderFragment {
             ));
             root.addView(textView);
         }
+
+        Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_LONG).show();
 
         return root;
     }

@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.LoaderManager;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
@@ -24,6 +25,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.notit.bank.bankapp.User.User;
+
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,12 +175,12 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return (email.contains("@") && email.contains("."));
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return password.length() > 5;
     }
 
     /**
@@ -329,6 +333,7 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
     public static User getUser() {
         return user;
     }
+
 }
 
 

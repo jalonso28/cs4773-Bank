@@ -5,18 +5,24 @@ package com.notit.bank.bankapp.User;
  * Created by Beaster on 11/5/2015.
  */
 public class User {
-    private long id;
+    private int id;
     private String email;
     private String password;
     private String first;
     private String last;
     private long roleCode;
     private String roleTitle;
-    public long getId() {
+    private int SSN;
+
+    public int getSSN() { return SSN; }
+
+    public void setSSN(int SSN) { this.SSN = SSN; }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 

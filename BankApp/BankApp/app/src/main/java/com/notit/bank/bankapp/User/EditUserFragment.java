@@ -72,12 +72,13 @@ public class EditUserFragment extends DialogFragment {
                         newUser.setFirst(first.getText().toString());
                         newUser.setLast(last.getText().toString());
                         newUser.setRoleCode(spinner.getSelectedItemId() + 1);
+                        newUser.setId(0);
 
-                        if (user == null) {
+                        if (!user.getEmail().equals(newUser.getEmail())) {
                             dbController.insertUser(newUser);
                         } else {
                             newUser.setId(user.getId());
-                            dbController.updateUser(newUser);
+                            dbController.updateUser(newUser, user);
                         }
                         ((AddUserFragment) getParentFragment()).refreshList();
                     }
@@ -93,7 +94,7 @@ public class EditUserFragment extends DialogFragment {
     public static EditUserFragment getInstance(Context context, long id) {
         DBController dbController = DBController.getInstance(context);
         EditUserFragment fragment = new EditUserFragment();
-        fragment.setEmployee(dbController.getUser(id));
+        fragment.setEmployee(dbController.getUser((int)id));
         return fragment;
     }
 
