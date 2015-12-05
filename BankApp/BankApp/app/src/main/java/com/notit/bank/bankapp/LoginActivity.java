@@ -40,6 +40,18 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
 
     private static User user = null;
 
+    /**
+     * A dummy authentication store containing known user names and passwords.
+     * TODO: remove after connecting to a real authentication system.
+     */
+    private static final String[] DUMMY_CREDENTIALS = new String[]{
+            "foo@example.com:hello", "bar@example.com:world"
+    };
+    /**
+     * Keep track of the login task to ensure we can cancel it if requested.
+     */
+    private UserLoginTask mAuthTask = null;
+
     // UI references.
     private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
@@ -102,6 +114,9 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
      * errors are presented and no actual login attempt is made.
      */
     public void attemptLogin() {
+        if (mAuthTask != null) {
+            return;
+        }
 
         // Reset errors.
         mEmailView.setError(null);
@@ -139,15 +154,20 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             focusView.requestFocus();
         } else {
             DBController dbController = DBController.getInstance(this);
-            if (dbController.updatePassword(email, password, password)) {
-                user = new User();
-                user.setEmail(email);
-                user.setPassword(password);
-                user.setFirst("");
-                user.setLast("");
+            User user1;
+
+            // Show a progress spinner, and kick off a background task to
+            // perform the user login attempt.
+            /*showProgress(true);
+            mAuthTask = new UserLoginTask(email, password);
+            mAuthTask.execute((Void) null);*/
+
+            user1 = dbController.getUser(email);
+            if (user1 != null && user1.getPassword().equals(password)) {
+                user = user1;
                 finish();
             } else {
-                mPasswordView.setError(getString(R.string.error_incorrect_login));
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
                 mPasswordView.requestFocus();
             }
         }
@@ -253,11 +273,66 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
         mEmailView.setAdapter(adapter);
     }
 
+    /**
+     * Represents an asynchronous login/registration task used to authenticate
+     * the user.
+     */
+    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+
+        private final String mEmail;
+        private final String mPassword;
+
+        UserLoginTask(String email, String password) {
+            mEmail = email;
+            mPassword = password;
+        }
+
+        @Override
+        protected Boolean doInBackground(Void... params) {
+            // TODO: attempt authentication against a network service.
+
+            try {
+                // Simulate network access.
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                return false;
+            }
+
+            for (String credential : DUMMY_CREDENTIALS) {
+                String[] pieces = credential.split(":");
+                if (pieces[0].equals(mEmail)) {
+                    // Account exists, return true if the password matches.
+                    return pieces[1].equals(mPassword);
+                }
+            }
+
+            // TODO: register the new account here.
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(final Boolean success) {
+            mAuthTask = null;
+            showProgress(false);
+
+            if (success) {
+                finish();
+            } else {
+                mPasswordView.setError(getString(R.string.error_incorrect_password));
+                mPasswordView.requestFocus();
+            }
+        }
+
+        @Override
+        protected void onCancelled() {
+            mAuthTask = null;
+            showProgress(false);
+        }
+    }
+
     public static User getUser() {
         return user;
     }
-
-    public static void setUser(User user) {LoginActivity.user = user;}
 
 }
 
