@@ -33,9 +33,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.notit.bank.bankapp.MainActivity" />
         </activity>
-        <service
-            android:name=".FetchAddressIntentService"
-            android:exported="false"/>
+        <activity
+            android:name=".MessagingActivity"
+            android:label="@string/title_activity_login"
+            android:parentActivityName=".MainActivity"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.notit.bank.bankapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

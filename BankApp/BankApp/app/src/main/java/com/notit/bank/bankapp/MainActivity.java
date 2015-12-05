@@ -84,6 +84,8 @@ public class MainActivity extends ActionBarActivity
                     break;
                 case 1:
                     fragment = PlaceholderFragment.newInstance(-1);
+                    Intent intent = new Intent(this, MessagingActivity.class);
+                    startActivity(intent);
                     break;
                 case 2:
                     fragment = PlaceholderFragment.newInstance(-1);

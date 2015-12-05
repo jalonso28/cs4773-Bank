@@ -3,6 +3,7 @@
 
     <!-- Strings related to login -->
     <string name="title_activity_login">Sign in</string>
+    <string name="title_messaging">Messaging</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -18,7 +19,7 @@
     <string name="title_section1">Add/Edit/Delete</string>
     <string name="title_section2">Messaging</string>
     <string name="title_section3">Section 3</string>
-    <string name="untitled">Untitled</string>
+    <string name="untitled">Messaging Tab</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
