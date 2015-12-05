@@ -6,16 +6,17 @@
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in">Sign In</string>
     <string name="action_sign_in_short">Sign in</string>
 
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_incorrect_login">This login is incorrect</string>
     <string name="error_field_required">This field is required</string>
 
-    <string name="title_section1">User Info</string>
-    <string name="title_section2">Add/Delete User</string>
+    <string name="title_section1">Add/Edit/Delete</string>
+    <string name="title_section2">Messaging</string>
     <string name="title_section3">Section 3</string>
     <string name="untitled">Untitled</string>
 
@@ -29,14 +30,23 @@
     <string name="last">Last</string>
 
     <string name="create_user">Create User</string>
-    <string name="edit_add">Edit / Add</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_email">Change Email</string>
+    <string name="token">Token</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
+    <string name="ssn">SSN</string>
+    <string name="id">ID</string>
 
     <string name="action_settings">Settings</string>
     <string name="user">User</string>
     <string name="type">Type</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="old_email">Old Email</string>
+    <string name="new_email">New Email</string>
+    <string name="logout">Logout</string>
 
 </resources>

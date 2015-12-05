@@ -63,8 +63,6 @@ public class UserFragment extends MainActivity.PlaceholderFragment {
             root.addView(textView);
         }
 
-        Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_LONG).show();
-
         return root;
     }
 }

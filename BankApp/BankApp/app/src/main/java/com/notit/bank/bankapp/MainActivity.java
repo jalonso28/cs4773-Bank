@@ -80,11 +80,10 @@ public class MainActivity extends ActionBarActivity
         if (user != null) {
             switch (position) {
                 case 0:
-                    fragment = UserFragment.newInstance(1, user.getId());
-                    ft.replace(R.id.container, fragment);
+                    fragment = HRFragment.newInstance(1);
                     break;
                 case 1:
-                    fragment = AddUserFragment.newInstance(2);
+                    fragment = PlaceholderFragment.newInstance(-1);
                     break;
                 case 2:
                     fragment = PlaceholderFragment.newInstance(-1);
@@ -140,8 +139,9 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_logout) {
+            LoginActivity.setUser(null);
+            recreate();
         }
 
         return super.onOptionsItemSelected(item);
