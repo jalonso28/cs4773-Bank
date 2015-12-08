@@ -3,6 +3,7 @@ package com.notit.bank.bankapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,7 +16,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.android.gms.location.LocationListener;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.notit.bank.bankapp.User.*;
 
 /**
@@ -36,6 +44,7 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -52,6 +61,7 @@ public class MainActivity extends ActionBarActivity
         FragmentManager fm = getSupportFragmentManager();
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
@@ -78,17 +88,20 @@ public class MainActivity extends ActionBarActivity
         User user = LoginActivity.getUser();
 
         if (user != null) {
+            Intent intent;
             switch (position) {
                 case 0:
                     fragment = HRFragment.newInstance(1);
                     break;
                 case 1:
                     fragment = PlaceholderFragment.newInstance(-1);
-                    Intent intent = new Intent(this, MessagingActivity.class);
+                    intent = new Intent(this, MessagingActivity.class);
                     startActivity(intent);
                     break;
                 case 2:
                     fragment = PlaceholderFragment.newInstance(-1);
+                    intent = new Intent(this, GPSActivity.class);
+                    startActivity(intent);
                     break;
                 default:
                     fragment = PlaceholderFragment.newInstance(-1);
@@ -142,18 +155,15 @@ public class MainActivity extends ActionBarActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
+            DBController dbController = DBController.getInstance(getApplicationContext());
+            dbController.logout(LoginActivity.getUser().getEmail(),
+                    LoginActivity.getUser().getPassword());
             LoginActivity.setUser(null);
             recreate();
         }
 
         return super.onOptionsItemSelected(item);
     }
-
-
-
-
-
-
 
     /**
      * A placeholder fragment containing a simple view.
@@ -194,6 +204,5 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
-
 
 }

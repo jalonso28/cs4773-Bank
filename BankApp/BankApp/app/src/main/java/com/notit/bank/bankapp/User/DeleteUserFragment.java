@@ -49,7 +49,6 @@ public class DeleteUserFragment extends DialogFragment {
     public static DeleteUserFragment getInstance(Context context, long id) {
         DBController dbController = DBController.getInstance(context);
         DeleteUserFragment fragment = new DeleteUserFragment();
-        fragment.setEmployee(dbController.getUser((int)id));
         return fragment;
     }
 

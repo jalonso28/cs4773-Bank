@@ -60,7 +60,6 @@ public class NewUserFragment extends DialogFragment {
     public static NewUserFragment getInstance(Context context, long id) {
         DBController dbController = DBController.getInstance(context);
         NewUserFragment fragment = new NewUserFragment();
-        fragment.setEmployee(dbController.getUser((int)id));
         return fragment;
     }
 

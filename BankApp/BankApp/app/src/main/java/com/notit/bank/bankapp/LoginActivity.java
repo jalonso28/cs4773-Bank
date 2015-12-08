@@ -26,9 +26,6 @@ import android.widget.TextView;
 
 import com.notit.bank.bankapp.User.User;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,6 +136,14 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
             focusView.requestFocus();
         } else {
             DBController dbController = DBController.getInstance(this);
+            if (dbController.checkLogin(email, password)){
+                user = new User();
+                user.setEmail(email);
+                user.setPassword(password);
+                user.setFirst("");
+                user.setLast("");
+                finish();
+            }/*
             if (dbController.updatePassword(email, password, password)) {
                 user = new User();
                 user.setEmail(email);
@@ -146,7 +151,8 @@ public class LoginActivity extends Activity implements LoaderManager.LoaderCallb
                 user.setFirst("");
                 user.setLast("");
                 finish();
-            } else {
+            } */
+            else {
                 mPasswordView.setError(getString(R.string.error_incorrect_login));
                 mPasswordView.requestFocus();
             }

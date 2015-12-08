@@ -20,7 +20,8 @@ public class DBController extends Thread {
     private static User user;
     private static Context context;
     private static String jsonString;
-    String progress;
+    private static String host = "http://159.203.136.85/BankingSystem/";
+    //private static String host = "http://159.203.140.203/";
 
 
     public static DBController getInstance(Context context) {
@@ -36,13 +37,6 @@ public class DBController extends Thread {
     private DBController(Context context) {
         this.context = context;
         user = new User();
-
-        this.user.setFirst("Some");
-        this.user.setLast("Person");
-        this.user.setRoleTitle("User");
-        this.user.setEmail("some@person.com");
-        this.user.setPassword("someotherguy");
-        this.user.setRoleCode(1);
     }
 
     public User getUser(String email) {
@@ -52,30 +46,27 @@ public class DBController extends Thread {
     // Get a single employee by their id
     public User getUser(int id) {
         return this.user;
-        //return getUserByID(id);
     }
 
-    public void getToken(String email, String password) {
-        String address = "http://159.203.140.203/account/delete/initiate/" + email + "?password=" +
+    public boolean checkLogin(String email, String password) {
+        String address = host + "login?email=" + email + "&password=" +
                 password;
 
         final String url = address;
-
-        /*
-        TODO: {"meta":{"code":404,"cause":"account exists"}} is error
-        200 is success
-         */
 
         AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+
+                jsonString = getUrlContents(url);
+
+                /*try {
                     jsonString = getJsonFromServer(url);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
+
                 return null;
             }
 
@@ -86,7 +77,77 @@ public class DBController extends Thread {
         };
         mTask.execute();
         try {
-            sleep(4000);
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if(jsonString.contains("Log in successful")) {
+            this.user.setEmail(email);
+            this.user.setPassword(password);
+            return true;
+        }
+        else
+
+            Toast.makeText(context, jsonString, Toast.LENGTH_LONG).show();
+        return false;
+    }
+
+    public void logout(String email, String password) {
+        String address = host + "logout?email=" + email + "&password=" +
+                password;
+
+        final String url = address;
+
+        AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                jsonString = getUrlContents(url);
+
+                /*try {
+                    jsonString = getJsonFromServer(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+            }
+        };
+        mTask.execute();
+    }
+
+
+    public void getToken(String email, String password) {
+        String address = host + "account/delete/initiate/" + email + "?password=" +
+                password;
+
+        final String url = address;
+
+        AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                jsonString = getUrlContents(url);
+                /*try {
+                    jsonString = getJsonFromServer(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+            }
+        };
+        mTask.execute();
+        try {
+            sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -94,26 +155,23 @@ public class DBController extends Thread {
 
 
     public void deleteUser(String email, String password, String token) {
-        String address = "http://159.203.140.203/account/delete/confirm/" + email + "?password=" +
+        String address = host + "account/delete/confirm/" + email + "?password=" +
                 password + "&token=" + token;
 
         final String url = address;
 
-          /*
-        TODO: {"meta":{"code":404,"cause":"account exists"}} is error
-        200 is success
-         */
 
         AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+                jsonString = getUrlContents(url);
+
+                /*try {
                     jsonString = getJsonFromServer(url);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
                 return null;
             }
 
@@ -124,33 +182,29 @@ public class DBController extends Thread {
         };
         mTask.execute();
         try {
-            sleep(4000);
+            sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         Toast.makeText(context, jsonString, Toast.LENGTH_LONG).show();
     }
 
-    public Boolean updatePassword(String email, String oPassword, String nPassword) {
-        String address = "http://159.203.140.203/account/password/" + email + "?old_password=" +
+    public boolean updatePassword(String email, String oPassword, String nPassword) {
+        String address = host + "account/password/" + email + "?old_password=" +
                 oPassword + "&new_password=" + nPassword;
         final String url = address;
 
-        /*
-        TODO: {"meta":{"code":404,"cause":"account exists"}} is error
-        200 is success
-         */
-
         AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+                jsonString = getUrlContents(url);
+
+                /*try {
                     jsonString = getJsonFromServer(url);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
                 return null;
             }
 
@@ -161,37 +215,35 @@ public class DBController extends Thread {
         };
         mTask.execute();
         try {
-            sleep(4000);
+            sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        if(jsonString.contains("login invalid"))
-            return false;
+
+        if(jsonString.contains("{\"code\":200}"))
+            return true;
         else
             Toast.makeText(context, jsonString, Toast.LENGTH_LONG).show();
-        return true;
+
+        return false;
     }
 
     public void updateEmail(String oEmail, String nEmail, String password) {
-        String address = "http://159.203.140.203/account/email/" + oEmail + "?password=" +
+        String address = host + "account/email/" + oEmail + "?password=" +
                 password + "&new_email=" + nEmail;
         final String url = address;
-
-        /*
-        TODO: {"meta":{"code":404,"cause":"account exists"}} is error
-        200 is success
-         */
 
         AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+                jsonString = getUrlContents(url);
+
+                /*try {
                     jsonString = getJsonFromServer(url);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
                 return null;
             }
 
@@ -202,7 +254,7 @@ public class DBController extends Thread {
         };
         mTask.execute();
         try {
-            sleep(4000);
+            sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -212,26 +264,23 @@ public class DBController extends Thread {
 
     public void insertUser(User newUser) {
         jsonString = "";
-        String address = "http://159.203.140.203/account/create/" + Integer.toString(newUser.getId())
+        String address = host + "account/create/" + Integer.toString(newUser.getId())
                 + "?ssn=" + Integer.toString(newUser.getSSN()) + "&name=" + newUser.getFirst() + "+"
                 + newUser.getLast() + "&email=" + newUser.getEmail();
         final String url = address;
-
-        /*
-        TODO: {"meta":{"code":404,"cause":"account exists"}} is error
-        200 is success
-         */
 
         AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... params) {
-                try {
+                jsonString = getUrlContents(url);
+
+                /*try {
                     jsonString = getJsonFromServer(url);
                 } catch (IOException e) {
-                    // TODO Auto-generated catch block
                     e.printStackTrace();
-                }
+                }*/
+
                 return null;
             }
 
@@ -242,7 +291,7 @@ public class DBController extends Thread {
         };
         mTask.execute();
         try {
-            sleep(4000);
+            sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -255,13 +304,46 @@ public class DBController extends Thread {
         BufferedReader inputStream = null;
         URL jsonUrl = new URL(url);
         URLConnection dc = jsonUrl.openConnection();
-       // dc.setConnectTimeout(5000);
-        //dc.setReadTimeout(5000);
+        //dc.setConnectTimeout(2000);
+        //dc.setReadTimeout(2000);
         inputStream = new BufferedReader(new InputStreamReader(
                 dc.getInputStream()));
         // read the JSON results into a string
         String jsonResult = inputStream.readLine();
         return jsonResult;
+    }
+
+    private static String getUrlContents(String theUrl)
+    {
+        StringBuilder content = new StringBuilder();
+
+        // many of these calls can throw exceptions, so i've just
+        // wrapped them all in one try/catch statement.
+        try
+        {
+            // create a url object
+            URL url = new URL(theUrl);
+
+            // create a urlconnection object
+            URLConnection urlConnection = url.openConnection();
+
+            // wrap the urlconnection in a bufferedreader
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
+
+            String line;
+
+            // read from the urlconnection via the bufferedreader
+            while ((line = bufferedReader.readLine()) != null)
+            {
+                content.append(line + "\n");
+            }
+            bufferedReader.close();
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        return content.toString();
     }
 
 

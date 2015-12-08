@@ -49,7 +49,6 @@ public class NewPasswordFragment extends DialogFragment {
     public static NewPasswordFragment getInstance(Context context, long id) {
         DBController dbController = DBController.getInstance(context);
         NewPasswordFragment fragment = new NewPasswordFragment();
-        fragment.setEmployee(dbController.getUser((int)id));
         return fragment;
     }
 

@@ -4,6 +4,12 @@
     <!-- Strings related to login -->
     <string name="title_activity_login">Sign in</string>
     <string name="title_messaging">Messaging</string>
+    <string name="title_gps">GPS</string>
+
+    <string name="lbl_you_are_at">YOU ARE AT</string>
+    <string name="btn_get_location">GET MY LOCATION</string>
+    <string name="btn_start_location_updates">START LOCATION UPDATES</string>
+    <string name="btn_stop_location_updates">STOP LOCATION UPDATES</string>
 
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -18,8 +24,8 @@
 
     <string name="title_section1">Add/Edit/Delete</string>
     <string name="title_section2">Messaging</string>
-    <string name="title_section3">Section 3</string>
-    <string name="untitled">Messaging Tab</string>
+    <string name="title_section3">GPS</string>
+    <string name="untitled"></string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -29,6 +35,8 @@
     <string name="add_user">Add User</string>
     <string name="first">First</string>
     <string name="last">Last</string>
+    <string name="longitude">Longitude</string>
+    <string name="latitude">Latitude</string>
 
     <string name="create_user">Create User</string>
     <string name="change_password">Change Password</string>

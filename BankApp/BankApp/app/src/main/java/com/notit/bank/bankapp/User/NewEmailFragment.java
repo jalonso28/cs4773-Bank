@@ -49,7 +49,6 @@ public class NewEmailFragment extends DialogFragment {
     public static NewEmailFragment getInstance(Context context, long id) {
         DBController dbController = DBController.getInstance(context);
         NewEmailFragment fragment = new NewEmailFragment();
-        fragment.setEmployee(dbController.getUser((int)id));
         return fragment;
     }
 
