@@ -18,6 +18,8 @@ import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import java.util.Date;
+
 public class GPSActivity extends Activity implements ConnectionCallbacks,
         OnConnectionFailedListener, LocationListener {
 
@@ -260,9 +262,11 @@ public class GPSActivity extends Activity implements ConnectionCallbacks,
     public void onLocationChanged(Location location) {
         // Assign the new location
         mLastLocation = location;
+        Date date = new Date();
 
-        Toast.makeText(getApplicationContext(), "Location changed!",
-                Toast.LENGTH_SHORT).show();
+        DBController dbcontroller = DBController.getInstance(getParent());
+        dbcontroller.updateGps(mLastLocation.getLatitude(), mLastLocation.getLongitude(),
+        mLastLocation.getAltitude(), date);
 
         // Displaying the new location on UI
         displayLocation();

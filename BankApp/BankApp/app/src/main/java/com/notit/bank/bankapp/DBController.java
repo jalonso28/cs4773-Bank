@@ -13,6 +13,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DBController extends Thread {
 
@@ -347,4 +348,43 @@ public class DBController extends Thread {
     }
 
 
+    public void updateGps(double latitude, double longitude, double altitude, Date date) {
+        jsonString = "";
+        String dateTime = date.getYear() + "-" + date.getMonth() + "-" + date.getDay() +
+                date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
+        String address = host + "gps/add?email=" + user.getEmail()
+                + "&password=" + user.getPassword() + "&profileID=" + 8 +
+                "&latitude=" + latitude  + "&longitude=" + longitude +
+                "&altitude=" + 1 + "&dateAndTime=" + dateTime;
+
+        final String url = address;
+
+        AsyncTask<Void, Void, Void> mTask = new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected Void doInBackground(Void... params) {
+                jsonString = getUrlContents(url);
+
+                /*try {
+                    jsonString = getJsonFromServer(url);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void result) {
+                super.onPostExecute(result);
+            }
+        };
+        mTask.execute();
+        try {
+            sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(context, jsonString, Toast.LENGTH_LONG).show();
+    }
 }
